@@ -26,6 +26,7 @@ partition = function(A = vector(),l = integer(), r = integer()){
   return(list(A,i-1))
 }
 
+# Default function
 quicksort = function(A = vector()){
   l = length(A)
   if (l <= 1){
@@ -50,8 +51,9 @@ quicksort = function(A = vector()){
   }
   
   return(c(left,p,right))
-}  # Default function
+}  
 
+# First Element Pivot
 quicksort1 = function(A = vector()){
   l = length(A)
   if (l <= 1){
@@ -88,7 +90,7 @@ quicksort1 = function(A = vector()){
   }
   
   return(list(c(left,p,right),n))
-} # First Element Pivot
+} 
 
 # Second Element Pivot
 quicksort2 = function(A = vector()){
@@ -129,6 +131,7 @@ quicksort2 = function(A = vector()){
   return(list(c(left,p,right),n))
 } 
 
+# Median Element Pivor
 quicksort3 = function(A = vector()){
   l = length(A)
   if (l <= 1){
@@ -170,11 +173,12 @@ quicksort3 = function(A = vector()){
 medianindex = function(A = vector()){
   l = length(A)
   if (l == 2){
-    if (A[1] < A[2]){
-      return(1L)
-    }
-    else
-      return(2L)
+    return(1)
+#    if (A[1] < A[2]){
+#      return(1L)
+#    }
+#    else
+#      return(2L)
   }
   
   first = A[1]
