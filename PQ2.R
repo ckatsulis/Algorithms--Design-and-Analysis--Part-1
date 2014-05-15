@@ -3,8 +3,8 @@ setwd(".")
 dat = read.table("QuickSort.txt")
 dat = as.numeric(dat$V1)
 
-dat = read.table(url("https://dl.dropboxusercontent.com/u/20888180/AlgI_wk2_testcases/10.txt"))
-dat = as.numeric(dat$V1)
+#dat = read.table(url("https://dl.dropboxusercontent.com/u/20888180/AlgI_wk2_testcases/1000.txt"))
+#dat = as.numeric(dat$V1)
 
 partition = function(A = vector(),l = integer(), r = integer()){
   if (length(A) <= 1) return(A)
@@ -26,6 +26,7 @@ partition = function(A = vector(),l = integer(), r = integer()){
   return(list(A,i-1))
 }
 
+# Default function
 quicksort = function(A = vector()){
   l = length(A)
   if (l <= 1){
@@ -50,8 +51,9 @@ quicksort = function(A = vector()){
   }
   
   return(c(left,p,right))
-}  # Default function
+}  
 
+# First Element Pivot
 quicksort1 = function(A = vector()){
   l = length(A)
   if (l <= 1){
@@ -88,7 +90,7 @@ quicksort1 = function(A = vector()){
   }
   
   return(list(c(left,p,right),n))
-} # First Element Pivot
+} 
 
 # Second Element Pivot
 quicksort2 = function(A = vector()){
@@ -129,6 +131,7 @@ quicksort2 = function(A = vector()){
   return(list(c(left,p,right),n))
 } 
 
+# Median Element Pivor
 quicksort3 = function(A = vector()){
   l = length(A)
   if (l <= 1){
@@ -136,9 +139,10 @@ quicksort3 = function(A = vector()){
   }
   
   n = l - 1
-  
+  print(n)
   # Index Selection
-  index = medianindex(length(A))
+  index = medianindex(A)
+  print(index)
   temp = A[1]
   A[1] = A[index]
   A[index] = temp
@@ -169,13 +173,7 @@ quicksort3 = function(A = vector()){
 
 medianindex = function(A = vector()){
   l = length(A)
-  if (l == 2){
-    if (A[1] < A[2]){
-      return(1L)
-    }
-    else
-      return(2L)
-  }
+  if (l == 2) return(1)
   
   first = A[1]
   middle = A[round((l+.1)/2.0)]
@@ -185,5 +183,6 @@ medianindex = function(A = vector()){
   
   value = median(medianofthree)
   i = which(A == value)
+  print(i)
   return(i)
 }
