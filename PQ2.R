@@ -182,6 +182,6 @@ medianindex = function(A = vector()){
   medianofthree = c(first,middle,last)
   value = median(medianofthree)
   i = which(A == value)
-  print(i)
+  
   return(i)
 }
