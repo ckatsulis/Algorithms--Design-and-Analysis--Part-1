@@ -174,6 +174,7 @@ quicksort3 = function(A = vector()){
 medianindex = function(A = vector()){
   l = length(A)
   if (l == 2) return(1)
+
   
   first = A[1]
   middle = A[round((l+.1)/2.0)]
