@@ -1,32 +1,54 @@
 ##  PQ3.R
 require(igraph)
-setwd("C:/Users/chris.katsulis/Documents/Algorithms--Design-and-Analysis--Part-1/PQ3")
+# setwd("C:/Users/chris.katsulis/Documents/Algorithms--Design-and-Analysis--Part-1/PQ3")
+# 
+# dat = read.graph("test1.txt",format ="edgelist",directed=FALSE,7)
+# 
+# plot(dat, vertex.size=0, edge.arrow.size=0 )
+# plot(dat, layout=layout.kamada.kawai)
+# tkplot(dat, layout=layout.kamada.kawai)
+# 
+C = splice(C,1)
+dat = read.table("kargerMinCut.txt",header=F,fill=T,col.names=1:201)
+dat = dat[,2:length(dat)]
 
-dat = read.graph("test1.txt",format ="edgelist",directed=FALSE,7)
 
-plot(dat, vertex.size=0, edge.arrow.size=0 )
-plot(dat, layout=layout.kamada.kawai)
-tkplot(dat, layout=layout.kamada.kawai)
-
-
-
-
-dat = read.table("test1.txt",header=F,fill=T,col.names=1:10)
 mincut = function(A = matrix()){
-  r = dim(A)[1]
-  i = round(.00001 + runif(10000,0.5,r + 0.5))
+  min = dim(A)[1]
+  for (i in 1:dim(A)[1]){
+    cuts = cut(A)
+    if (cuts < min) min = cuts
+  }
+  return(min)
 }
 
-splice = function(A = matrix(),m = -1L){
-  if ((m < 1)|A[m,2] == NA) return A
-  B = A[m,]
-  n = A[m,2]
-  C = A[n,2:dim(A)[2]]
+
+cut = function(A = matrix()){
+  nodes = 1:dim(A)[1]
   
-  for (i in 1:length(B)){
-    if is.na(B[i]){
-      B = c(B[1:i-1],C)
-    }
+  while (length(nodes) > 2){
+    rnode = sample(A[!(is.na(A[,1])),1],1)
+    A = splice(A,rnode)
+    nodes = which(!is.na(A[,1]))
   }
+  cuts = sum(!is.na(A[nodes[1],]))
+  return(list(cuts,A))
+  #return(cuts)
+}
+
+splice = function(C = data.frame(),a = -1L){
+  if (is.na(a)) return(C)
+  r = dim(C)[1]
+  l = dim(C)[2]
+  A = C[a,]             #  Save A node references
+  b = sample(A[!is.na(A)],1)                   #  Set paired node
+  B = C[b,]           #  Save B node references
+  C[b,] = NA                       #  Remove B node references in return matrix
+  D = sort(cbind(A,B),na.last = T)     #  Combine
+  D = D[!(D == a | D == b)]        #  Remove Self References
+  D = D[1:l]    #  Append NA to remaing vector
+  C[a,] = D                      #  Set new node references to a location
   
+  C[C == b] = a
+  return(C)
 }
