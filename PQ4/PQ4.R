@@ -19,7 +19,7 @@ DFSloop = function(A = list()){
   for (i in C){
     if (!(A[[i]][1] == 0))
       s <<- i
-      DFSCSC(A,i)
+      A = DFSCSC(A,i)
   }
   return(leader)
 }
@@ -31,7 +31,6 @@ DFSCSC = function(A = list(),i = integer()){
   for (j in B){
     if (!(A[[j]][1] == 0)){
       print(A)
-      print(n)
       A = DFSCSC(A,j) 
     }
   }
