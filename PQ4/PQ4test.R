@@ -1,4 +1,4 @@
-dat = read.table("test1.txt")
+dat = read.table("testlec.txt")
 
 # forward graph
 A = split(dat$V2,dat$V1)
@@ -6,13 +6,17 @@ A = split(dat$V2,dat$V1)
 # inverse graph
 B = split(dat$V1,dat$V2)
 
+C = DFSlist(B)
+
+
+
 
 #Flag for visited is appending node 0 to node list
-DFSlist = function(A = list(),v = integer()){
+DFSlist = function(A = list(),B = list()){
   B = list()
   A <<- A
   for (i in names(A)){
-    B[[i]] = as.numeric(DFS(A,i))
+    B[[i]] = as.numeric(DFS(i))
   }
   return(B)
 }
