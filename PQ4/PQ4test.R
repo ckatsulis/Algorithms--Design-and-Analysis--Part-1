@@ -1,36 +1,24 @@
-dat = read.table("testlec.txt")
+dat = read.table("test3.txt")
+# inverse graph
+A <<- split(as.integer(dat$V1),dat$V2)
+
+result = DFSloop()
+A = A[order(names(A))]
+f = f[order(names(f))]
 
 # forward graph
-A = split(dat$V2,dat$V1)
-
-# inverse graph
-B = split(dat$V1,dat$V2)
-
-C = DFSlist(B)
-
-
-
-
-#Flag for visited is appending node 0 to node list
-DFSlist = function(A = list(),B = list()){
-  B = list()
-  A <<- A
-  for (i in names(A)){
-    B[[i]] = as.numeric(DFS(i))
+A <<- split(as.integer(dat$V2),dat$V1)
+B <<- A
+for (i in 1:length(names(A))){
+  for(j in 1:length(A[[i]])){
+    print(i)
+    print(j)
+    A[[i]][j] <- as.integer(f[as.character(A[[i]][j])])
   }
-  return(B)
+  names(A)[i] <- f[as.character(i)]
 }
 
-DFS = function(v = integer()){
-  
-  verts = A[[v]]
-  discovered = v
-  A[[v]] = c(0,A[[v]])
-  for (i in verts){
-    if (!(0 %in% A[[i]])){
-      d = DFS(i)
-      discovered = c(discovered,d)
-    }
-  }
-  return(discovered)
-}
+
+result = DFSloop()
+result = result[order(names(result))]
+table(result)
