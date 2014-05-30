@@ -15,6 +15,7 @@ DFSloop = function(){
   }
   return(leader)
 }
+DFSloop = cmpfun(DFSloop)
 
 DFSCSC = function(n = integer()){
   leader[as.character(n)] <<- s         # Assign Leader Node
@@ -39,3 +40,4 @@ DFSCSC = function(n = integer()){
   
   return()
 }
+DFSCSC = cmpfun(DFSCSC)
