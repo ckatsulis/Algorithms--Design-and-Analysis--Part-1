@@ -1,16 +1,15 @@
-dat = read.table("test7.txt")
+dat <<- read.table("testlec.txt")
 # inverse graph
-A <<- split(as.integer(dat$V1),dat$V2)
 
+primegraph(2)
 
-result = DFSloop()
+DFSloop()
 
-
-A = A[order(names(A))]
-f = f[order(names(f))]
+f <<- f[as.character(sort(as.integer(names(f))))]
 leader = leader[order(names(leader))]
+
 # forward graph
-A <<- split(as.integer(dat$V2),dat$V1)
+primegraph(1)
 
 
 for (i in 1:length(names(A))){
@@ -20,12 +19,8 @@ for (i in 1:length(names(A))){
   names(A)[i] <- as.character(f[names(A[i])])
 }
 
+A <<- A[as.character(sort(as.integer(names(A))))]
+
 result = DFSloop()
 result = result[order(names(result))]
 table(result)
-
-
-
-
-#DFSloopcomp = cmpfun(DFSloop)
-#microbenchmark(DFSloop(), DFSloopcomp(), times = 1000)
